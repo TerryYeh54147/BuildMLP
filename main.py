@@ -33,7 +33,7 @@ def loss_diagram(epochs,losses):
     plt.xlabel('Epoch')
     # give x label name
     plt.ylabel('Loss')
-    # save the loss diagram
+    # save the loss diagram and name the file by the final loss value
     plt.savefig(f'{losses[-1]:0.9f}.png')
 
 def output_results(train_x, train_y, predict,last_loss):

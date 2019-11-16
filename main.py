@@ -36,24 +36,30 @@ def loss_diagram(epochs,losses):
     # save the loss diagram
     plt.savefig(f'{losses[-1]:0.9f}.png')
 
-def output_results(train_y, predict,last_loss):
+def output_results(train_x, train_y, predict,last_loss):
     labels, preds = [] , []
+    isSuccess = True
     # convert the numpy array to list
     for (l,p) in zip(train_y,predict):
-        if l[0]!=int(round(p[0])):
-            print(f'{l[0],int(round(p[0]))}')
-        labels.append(l[0])
+        # check difference
+        label, pred = l[0], int(round(p[0]))
+        if label!=pred:
+            print(f'{label,pred}')
+        labels.append(label)
         # round the result of my prediction
-        preds.append(int(round(p[0])))
+        preds.append(pred)
+    if isSuccess:
+        print("\nsuccessfully solved!")
     # build a dictionary for tabulation
     res = {
-        'label': labels,
-        'predict': preds
+        'Data':[np.array_str(d) for d in train_x],
+        'Label': labels,
+        'Predict': preds
     }
     data = pd.DataFrame(res)
     print("————————————————————————————")
     print(f"final loss: {last_loss:.9f}",end="\n\n")
-    print(data)
+    print(data.to_string())
     # save the result by the final loss value
     data.to_csv(f'{last_loss:.9f}.csv')
 
@@ -86,7 +92,7 @@ def main():
     # draw the loss diagram
     loss_diagram(epoches,losses)
     # output the results into the csv file
-    output_results(train_y,predict,losses[-1])
+    output_results(train_x,train_y,predict,losses[-1])
 
 if __name__ == "__main__":
     # use the random seed to fixed my result

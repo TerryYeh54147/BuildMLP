@@ -43,6 +43,7 @@ def output_results(train_y, predict,last_loss):
     print("--------------------------------")
     print(f"final loss: {last_loss:.9f}",end="\n\n")
     print(data)
+    data.to_csv('results.csv')
 
 def main():
     train_x, train_y = generate_training_data()

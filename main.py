@@ -64,18 +64,18 @@ def main():
     batch_train_x, input_train_x = train_x.shape
     learn_rate = 0.01
     momentum = 0.
-    epoches = 500
-    verbose_epoch = 50
+    epoches = 200
+    verbose_epoch = 10
     # declare the model
     models = Sequential(
         layers = [
         Dense(128, activation=ReLU()),
-        Dense(53, activation=Tanh())
-        ],
+        Dense(64, activation=Tanh()),
+        Dense(28, activation=Sigmoid())],
         input_dim = input_train_x
     )
     # add the layer
-    models.add(Dense(28, activation=Sigmoid()))
+    models.add(Dense(16, activation=ReLU()))
     models.add(Dense(1, activation=Sigmoid()))
     # declare the optimizer
     sgd = SGD(learn_rate = learn_rate, momentum = momentum)

@@ -45,7 +45,7 @@ class Sequential:
         for epoch in range(epoches):
             e_begin = batch_size * epoch
             e_end = e_begin + batch_size
-            #  take the number of training data and training label that match the batch size cyclically
+            # take the number of training data and training label that match the batch size cyclically
             slice_x = train_x.take(range(e_begin, e_end),mode='wrap', axis=0)
             slice_y = train_y.take(range(e_begin,e_end),mode='wrap', axis=0)
             slice_ybar = self.forward(slice_x)

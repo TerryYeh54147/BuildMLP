@@ -21,14 +21,14 @@ class Linear(Activation):
     def forward(self, x):
         # x -> kXm
         self.x = x
-        # out -> kXn : kXm(x) Â· mXn(W) + 1Xn(b)
+        # out -> kXn : kXm(x) · mXn(W) + 1Xn(b)
         out = np.dot(x, self.w) + self.b
         return out
 
     def backward(self, dout):
-        # dx -> kXm: kXn(dout) Â· nXm(W.T)
+        # dx -> kXm: kXn(dout) · nXm(W.T)
         dx = np.dot(dout, self.w.T)
-        # dw -> mXn : mXk(x.T) Â· kXn(dout)
+        # dw -> mXn : mXk(x.T) · kXn(dout)
         self.dw = np.dot(self.x.T, dout)
         # db -> 1Xn : 1Xn(dout[0])
         self.db = np.reshape(np.sum(dout, axis=0), (1,-1))

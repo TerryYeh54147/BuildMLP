@@ -34,12 +34,14 @@ def loss_diagram(epochs,losses):
     # give x label name
     plt.ylabel('Loss')
     # save the loss diagram
-    plt.savefig('loss.png')
+    plt.savefig(f'{losses[-1]:0.9f}.png')
 
 def output_results(train_y, predict,last_loss):
     labels, preds = [] , []
     # convert the numpy array to list
     for (l,p) in zip(train_y,predict):
+        if l[0]!=int(round(p[0])):
+            print(f'{l[0],int(round(p[0]))}')
         labels.append(l[0])
         # round the result of my prediction
         preds.append(int(round(p[0])))
@@ -62,18 +64,18 @@ def main():
     batch_train_x, input_train_x = train_x.shape
     learn_rate = 0.01
     momentum = 0.
-    epoches = 200
-    verbose_epoch = 10
+    epoches = 500
+    verbose_epoch = 50
     # declare the model
     models = Sequential(
         layers = [
         Dense(128, activation=ReLU()),
-        Dense(64, activation=Tanh()),
-        Dense(28, activation=Sigmoid())],
+        Dense(53, activation=Tanh())
+        ],
         input_dim = input_train_x
     )
     # add the layer
-    models.add(Dense(16, activation=ReLU()))
+    models.add(Dense(28, activation=Sigmoid()))
     models.add(Dense(1, activation=Sigmoid()))
     # declare the optimizer
     sgd = SGD(learn_rate = learn_rate, momentum = momentum)
